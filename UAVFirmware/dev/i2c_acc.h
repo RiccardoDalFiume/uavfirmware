@@ -29,21 +29,21 @@
 #include "..\include\i2c\i2c.h"
 
 //-----------------------------------------------------------------------------
-//	Define vari
+//	Define
 //-----------------------------------------------------------------------------
-#define I2C_FRQ     400000L 			// Frequenza di clock del bus I2C, 400kHz
+#define I2C_FRQ     400000L 			// I2C bus clock frequency, 400kHz
 
-#define ACC_ADDR 0x3A					// Indirizzo dell'accelerometro (0x1D) shiftato a sinistra (0x3A)
+#define ACC_ADDR 0x3A					// Address accelerometer (0x1D) shifted to the left (0x3A)
 #define READ_CMD    1
 #define WRITE_CMD   0
 
 #ifndef CIRC_BUF_ACC_LEN
-	#define CIRC_BUF_ACC_LEN	64		// Lunghezza del buffer circolare
-	#define CIRC_BUF_ACC_DIV	6		// log2(CIRC_BUF_ACC_LEN) per lo shift
+	#define CIRC_BUF_ACC_LEN	64		// Length of circular buffer
+	#define CIRC_BUF_ACC_DIV	6		// log2(CIRC_BUF_ACC_LEN) for the shift
 #endif
 
 //-----------------------------------------------------------------------------
-//	Define registri dell'accelerometro MMA7455
+//	Define accelerometer MMA7455 register
 //-----------------------------------------------------------------------------
 #define XOUTL 	0x00
 #define XOUTH	0x01
@@ -77,13 +77,13 @@
 #define TW 		0x1E
 
 //-----------------------------------------------------------------------------
-// Prototipi funzioni
+// Prototypes
 //-----------------------------------------------------------------------------
 void acc_init();
 void acc_write_reg(int8 reg, int8 data);
 
 //-----------------------------------------------------------------------------
-// Inizializzazione HW I2C
+// Initialization I2C Hardware
 //-----------------------------------------------------------------------------
 void dev_i2c_init()
 {
@@ -102,7 +102,7 @@ void dev_i2c_init()
 	}
 	
 //-----------------------------------------------------------------------------
-// Configurazione dei registri dell'accelerometro
+// Configuration of the accelerometer registers
 //-----------------------------------------------------------------------------
 void acc_init()
 {
@@ -119,7 +119,7 @@ void acc_init()
 }
 
 //-----------------------------------------------------------------------------
-// Aggiorna i valori dell'accelerometro
+// Update accelerometer values
 //-----------------------------------------------------------------------------
 void acc_up_xyz8()
 {

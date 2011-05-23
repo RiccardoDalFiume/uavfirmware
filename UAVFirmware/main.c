@@ -26,35 +26,35 @@
 //-----------------------------------------------------------------------------
 //	Define
 //-----------------------------------------------------------------------------
-#define EXT_OSC 1					// Imposta il clock come esterno
+#define EXT_OSC 1					// Set external clock source
 
-#define CK 80000000L				// Definisce la frequenza di clock
-#define FCY CK/2					// Definisce la frequenza di istruzione
+#define CK 80000000L				// Define clock frequency
+#define FCY CK/2					// Define instruction frequency
 
-#define CIRC_BUF_ACC_LEN	64		// Lunghezza del buffer circolare
-#define CIRC_BUF_ACC_DIV	6		// log2(CIRC_BUF_ACC_LEN) per lo shift
+#define CIRC_BUF_ACC_LEN	64		// Define circular buffer lenght
+#define CIRC_BUF_ACC_DIV	6		// log2(CIRC_BUF_ACC_LEN) for the shift op.
 
-#define LED1 _LATA10				// Definisce il pin A10 come LED1
-#define LED2 _LATA7					// Definisce il pin A7 come LED2
+#define LED1 _LATA10				// Define pin A10 -> LED1
+#define LED2 _LATA7					// Define pin A7 -> LED2
 
-#define RAD2DEG		180/3,141592	// K di conversione da radianti a gradi
-#define KNOTS2KMH 	1,852			// K di conversione da nodi a km/h
+#define RAD2DEG		180/3,141592	// Constant conversion from Rad to Deg
+#define KNOTS2KMH 	1,852			// Constant conversion from knots to km/h
 
 //-----------------------------------------------------------------------------
-//	Include delle librerie standard
+//	Standard library
 //-----------------------------------------------------------------------------
 #include "include\p33fj128gp804.h"
 #include <stdio.h>
 #include <math.h>
 
 //-----------------------------------------------------------------------------
-// Typerdef
+// Typedef
 //-----------------------------------------------------------------------------
-// Definisce il tipo intero con segno a 8 bit
+// Defines the type 8-bit signed integer
 typedef int __attribute__((__mode__(QI))) int8;
 
 //-----------------------------------------------------------------------------
-//	Include delle librerie UAV
+//	UAV library
 //-----------------------------------------------------------------------------
 #include "include\pointer.h"
 #include "include\crc.h"
@@ -64,15 +64,15 @@ typedef int __attribute__((__mode__(QI))) int8;
 #include "nav.h"
 
 //-----------------------------------------------------------------------------
-//	Inizio programma
+//	Program start
 //-----------------------------------------------------------------------------
 int main()
 {
-	dev_init();			// INIZIALIZZA HARDWARE
-	nav_init();			// INIZIALIZZA NAVIGAZIONE
+	dev_init();			// Initializes hardware
+	nav_init();			// initializes navigation
 
-	// Stampa messaggio di avvio
-	uart_xbee_print("\n\rINIZIALIZZAZIONE COMPLETATA\r\n");
+	// Print boot message
+	uart_xbee_print("\n\rINITIALIZATION COMPLETED\r\n");
 	
 	LED1 = 0;
 	LED2 = 0;

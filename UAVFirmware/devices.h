@@ -35,21 +35,21 @@
 #include "dev/timers.h"
 
 //-----------------------------------------------------------------------------
-//	Funzioni di inizializzazione
+//	Initialization functions
 //-----------------------------------------------------------------------------
 void dev_init()
 {
-	dev_osc();				// Configura l'oscillatore
+	dev_osc();				// Configure the oscillator
 	
-	dev_register_init();	// Configura i registri delle periferiche
-	dev_settris_init();		// Configura le porte del pic(Input/Output)
-	dev_pinset_init();		// Configura gli input/output rimappabili del dsPIC
+	dev_register_init();	// Configure the device registers
+	dev_settris_init();		// Configure pic Input/Output
+	dev_pinset_init();		// Configure dsPIC remappable Input/Output
 
-	dev_uart_xbee_init();	// Configura la UART dell'XBEE
-	dev_adc_init();			// Configura l'ADC
-//	dev_spi_init();			// Configura l'SPI
-	dev_i2c_init();			// Configura l'I2C
-	dev_timer_init();		// Configura e attiva le uscite dei servo
-	dev_uart_gps_init();	// Configura la UART del GPS
+	dev_uart_xbee_init();	// Configure UART for XBEE
+	dev_adc_init();			// Configure ADC
+//	dev_spi_init();			// Configure SPI
+	dev_i2c_init();			// Configure I2C
+	dev_timer_init();		// Configure and enable the outputs of the servo
+	dev_uart_gps_init();	// Configure UART for GPS
 }
 

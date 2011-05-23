@@ -26,20 +26,20 @@
 //-----------------------------------------------------------------------------
 //	Settaggio registri all'accensione
 //-----------------------------------------------------------------------------
-#if EXT_OSC == 0							// Oscillatore interno
+#if EXT_OSC == 0							// Internal Clock
 _FOSCSEL(FNOSC_FRCPLL );							// FRC Oscillator con PLL attivo
 _FOSC(FCKSM_CSDCMD & OSCIOFNC_OFF  & POSCMD_NONE);	// Clock Switching e Fail Safe Clock Monitor disabilitati
 													// Funzione del pin OSC2: OSC2 è usato dal quarzo
 													// Primary Oscillator Mode: Disabilitato
 
-#elif EXT_OSC == 1							// Oscillatore esterno
+#elif EXT_OSC == 1							// External Clock
 _FOSCSEL(FNOSC_PRIPLL & IESO_OFF);					// Primary oscillator (XT, HS, EC) con PLL
 _FOSC(FCKSM_CSDCMD & OSCIOFNC_OFF  & POSCMD_HS);	// Clock Switching e Fail Safe Clock Monitor disabilitati
 													// Funzione del pin OSC2: OSC2 è usato dal quarzo
 													// Primary Oscillator Mode: Oscillatore alta velocità HS
 #endif
 
-_FWDT(FWDTEN_OFF);									// Watchdog Timer disabilitato
+_FWDT(FWDTEN_OFF);									// Watchdog Timer disabled
 _FPOR(ALTI2C_OFF);									// Usa il BUS I2C sui pin SDA1/SCL1
 _FICD( JTAGEN_OFF & ICS_PGD3 );						// JTAG OFF, usa PGD3 in debug
 
@@ -48,14 +48,14 @@ _FICD( JTAGEN_OFF & ICS_PGD3 );						// JTAG OFF, usa PGD3 in debug
 //-----------------------------------------------------------------------------
 void dev_osc()
 {
-	#if EXT_OSC == 0					// Oscillatore interno
+	#if EXT_OSC == 0					// Internal Clock
 		OSCTUNbits.TUN = 4;				// Regola la precisione della frequenza interna
 		_PLLPRE = 3 - 2;				// Prescaler del PLL, 7.5/3 = 2.5Mhz
 		_PLLDIV = 64-2;					// Divisore del PLL, 2,5 * 64 = 160Mhz  (il -2 serve per correggere il valore di molt. es 0=x2 1=x3 62=x64)
 		_PLLPOST = 0;					// Postscaler del PLL, 160 / 2 = 80Mhz
 		while(!OSCCONbits.LOCK);		// Attendi che il PLL sia agganciato
 
-	#elif EXT_OSC == 1					// Oscillatore esterno
+	#elif EXT_OSC == 1					// External Clock
 		_PLLPRE = 2 -2;					// Prescaler del PLL, (il valore da settare al registro è inferire di 2 rispetto al valore di divisione)
 		_PLLDIV = 32 -2;				// Divisore del PLL, (il valore da settare al registro è inferire di 2 rispetto al valore di divisione)
 		_PLLPOST = 0;					// Postscaler del PLL, 0 = /2
@@ -128,19 +128,19 @@ void dev_pinset_init()
 //-----------------------------------------------------------------------------
 //	PIN Analog/Digital set
 //-----------------------------------------------------------------------------
-	_PCFG0		= 1;			// PIN Digitale
-	_PCFG1		= 0;			// PIN Analogico
-	_PCFG2		= 0;			// PIN Analogico
-	_PCFG3		= 0;			// PIN Analogico
-	_PCFG4 		= 1;			// PIN Digitale
-	_PCFG5		= 1;			// PIN Digitale
-	_PCFG6		= 1;			// PIN Digitale
-	_PCFG7		= 1;			// PIN Digitale
-	_PCFG8		= 1;			// PIN Digitale
-	_PCFG9 		= 0;			// PIN Analogico
-	_PCFG10		= 0;			// PIN Analogico
-	_PCFG11		= 1;			// PIN Digitale
-	_PCFG12		= 1;			// PIN Digitale
+	_PCFG0		= 1;			// PIN Digital
+	_PCFG1		= 0;			// PIN Analog
+	_PCFG2		= 0;			// PIN Analog
+	_PCFG3		= 0;			// PIN Analog
+	_PCFG4 		= 1;			// PIN Digital
+	_PCFG5		= 1;			// PIN Digital
+	_PCFG6		= 1;			// PIN Digital
+	_PCFG7		= 1;			// PIN Digital
+	_PCFG8		= 1;			// PIN Digital
+	_PCFG9 		= 0;			// PIN Analog
+	_PCFG10		= 0;			// PIN Analog
+	_PCFG11		= 1;			// PIN Digital
+	_PCFG12		= 1;			// PIN Digital
 }
 
 //-----------------------------------------------------------------------------

@@ -37,61 +37,61 @@
 #define GYROY_ADC_AN 10
 
 //-----------------------------------------------------------------------------
-// Prototipi
+// Prototype
 //-----------------------------------------------------------------------------
 void adc_gyro_init();
 signed int adc_gyro_read(char input);
 
 //-----------------------------------------------------------------------------
-// Inizializzazione A/D Converter
+// Initialize A/D Converter
 //-----------------------------------------------------------------------------
 void dev_adc_init()
 {
 	uart_xbee_print("ADC\tInitializing...\t");
 
-	_AD12B	= 0;						// Modalità 10 bit
-	_CHPS	= 0b00;						// Utilizza un solo input (CH0)
-	_VCFG	= 0b000;					// Setta i limiti di tensione (AVDD_AVSS)
-	_ADCS	= 0;						// Post scaler del clock dell'ADC
-	_FORM0	= 1;						// Seleziona il tipo di dato in uscita(signed integer)
+	_AD12B	= 0;						// 10 bit mode
+	_CHPS	= 0b00;						// Use a single input (CH0)
+	_VCFG	= 0b000;					// Set voltage range (AVDD_AVSS)
+	_ADCS	= 0;						// Set ADC clock post-scaler
+	_FORM0	= 1;						// Set output data-type (signed integer)
 	_FORM1	= 0;
-	_ASAM	= 0;						// Il sampling dell'ADC deve essere comandato impostando a 1 _SAMP
-	_SSRC	= 0b111;					// La conversione dell'ADC parte in automatico dopo il sampling
+	_ASAM	= 0;						// ADC sampling must be controlled setting _SAMP to 1.
+	_SSRC	= 0b111;					// The ADC conversion starts automatically after the sampling
 
-	_ADON = 1;							// Abilita l'ADC
+	_ADON = 1;							// Enable the ADC
 
-	delay_ms(10);						// Aspetta che l'elettronica si stabilizzi
+	delay_ms(10);						// Wait for the ADC to stabilize
 	
-	adc_gyro_init();					// Calibra il giroscopio
+	adc_gyro_init();					// Calibrates the gyro
 
-	uart_xbee_print("ADC\tInitializing completed\r\n");
+	uart_xbee_print("ADC\tInitialization completed\r\n");
 }
 
 //-----------------------------------------------------------------------------
-// Lettura dell'ingresso analogico impostato, è necessario impostarlo a priori
+// Reading of the selected analog input. Must be previously set.
 //-----------------------------------------------------------------------------
 signed int adc_read()		
 {
 	int adc_value = 0;
 	int8 k = 0;
 
-	// Filtro rumore bianco, 8 letture con media semplice
+	// White noise filter, 8 readings with the simple average
 	for(k = 0; k < 8 ; k++)
 	{
-		AD1CON1bits.SAMP = 1; 			// Avvia il campionamento
-		delay_us(10); 					// Aspetta 10us dopo ogni lettura
-		AD1CON1bits.SAMP = 0; 			// Ferma il campionamento e converti automaticamente
-		while (!AD1CON1bits.DONE); 		// Aspetta la fine della conversione
-		adc_value += ADC1BUF0; 			// Aggiungi il valore convertito al buffer della media
+		AD1CON1bits.SAMP = 1; 			// Start Sampling
+		delay_us(10); 					// Wait 10us after each reading
+		AD1CON1bits.SAMP = 0; 			// Stop sampling and automatically convert
+		while (!AD1CON1bits.DONE); 		// Wait for end of conversion
+		adc_value += ADC1BUF0; 			// Add the converted value to the average buffer
 	}
 	
-	adc_value = adc_value >> 3;			// Shift binario di 3, divide per 2^3 = 8
+	adc_value = adc_value >> 3;			// Shift of 3, divide by 2^3 = 8
 
 	return (adc_value);
 }
 
 //-----------------------------------------------------------------------------
-// Giroscopio
+// Gyroscope
 //-----------------------------------------------------------------------------
 void adc_gyro_init()
 {
@@ -105,16 +105,16 @@ signed int adc_gyro_read(char input)
 
 	switch(input)
 	{
-      case 'x':									// Asse x del giroscopio
+      case 'x':									// X-axis of the gyroscope
       	// Initialize MUXA Input Selection
-		AD1CHS0bits.CH0SA = GYROX_ADC_AN; 		// Seleziona GYROX_ADC_AN per l'input positivo di CH0
-		AD1CHS0bits.CH0NA = 0; 					// Seleziona VREF- per l'input negativo di CH0
+		AD1CHS0bits.CH0SA = GYROX_ADC_AN; 		// Select GYROX_ADC_AN for the positive input of CH0
+		AD1CHS0bits.CH0NA = 0; 					// Select VREF- for input negative of CH0
         break;
 
-      case 'y':									// Asse y del giroscopio
+      case 'y':									// Y-axis of the gyroscope
 		// Initialize MUXA Input Selection
-		AD1CHS0bits.CH0SA = GYROY_ADC_AN; 		// Seleziona GYROY_ADC_AN per l'input positivo di CH0
-		AD1CHS0bits.CH0NA = 0; 					// Seleziona VREF- per l'input negativo di CH0
+		AD1CHS0bits.CH0SA = GYROY_ADC_AN; 		// Select GYROX_ADC_AN for the positive input of CH0
+		AD1CHS0bits.CH0NA = 0; 					// Select VREF- for input negative of CH0
         break;
 
       default:
@@ -126,7 +126,7 @@ signed int adc_gyro_read(char input)
 }
 
 //-----------------------------------------------------------------------------
-// Lettura tramite timer del giroscopio - 200 Hz
+// Reading of the gyroscope via timer - 200 Hz
 //-----------------------------------------------------------------------------
 void tmr_gyro_read()
 {
@@ -146,17 +146,17 @@ void tmr_gyro_read()
 }
 
 //-----------------------------------------------------------------------------
-// Batteria
+// Battery
 //-----------------------------------------------------------------------------
 float adc_bat_read()
 {
 	float bat_value = 0;
 
-	// Imposto il canale dell'ad per leggere la tensione
-	AD1CHS0bits.CH0SA = V_ADC_AN;						// Seleziona V_ADC_AN per l'input positivo di CH0
-	AD1CHS0bits.CH0NA = 0; 								// Seleziona VREF- per l'input negativo di CH0
+	// Set the channel of the AD to read the voltage
+	AD1CHS0bits.CH0SA = V_ADC_AN;						// Select V_ADC_AN for the positive input of CH0
+	AD1CHS0bits.CH0NA = 0; 								// Select VREF- for input negative of CH0
 	
-	bat_value = (adc_read()+ 512) * (float)K_VSENS;		// Lettura dell'adc e calcolo della tensione
+	bat_value = (adc_read()+ 512) * (float)K_VSENS;		// Reading the ADC and voltage calculation
 
 	return (bat_value);
 }
