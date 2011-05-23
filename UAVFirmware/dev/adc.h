@@ -39,13 +39,13 @@
 //-----------------------------------------------------------------------------
 // Prototype
 //-----------------------------------------------------------------------------
-void adc_gyro_init();
+inline void adc_gyro_init();
 signed int adc_gyro_read(char input);
 
 //-----------------------------------------------------------------------------
 // Initialize A/D Converter
 //-----------------------------------------------------------------------------
-void dev_adc_init()
+inline void dev_adc_init()
 {
 	uart_xbee_print("ADC\tInitializing...\t");
 
@@ -93,7 +93,7 @@ signed int adc_read()
 //-----------------------------------------------------------------------------
 // Gyroscope
 //-----------------------------------------------------------------------------
-void adc_gyro_init()
+inline void adc_gyro_init()
 {
 	attitude.gyro_x.offset = -adc_gyro_read('x') -4;
 	attitude.gyro_y.offset = -adc_gyro_read('y');

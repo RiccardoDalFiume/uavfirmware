@@ -79,13 +79,13 @@
 //-----------------------------------------------------------------------------
 // Prototypes
 //-----------------------------------------------------------------------------
-void acc_init();
+inline void acc_init();
 void acc_write_reg(int8 reg, int8 data);
 
 //-----------------------------------------------------------------------------
 // Initialization I2C Hardware
 //-----------------------------------------------------------------------------
-void dev_i2c_init()
+inline void dev_i2c_init()
 {
 	uart_xbee_print("I2C\tInitializing...\t");
 
@@ -104,7 +104,7 @@ void dev_i2c_init()
 //-----------------------------------------------------------------------------
 // Configuration of the accelerometer registers
 //-----------------------------------------------------------------------------
-void acc_init()
+inline void acc_init()
 {
 	attitude.acc_x.count = 0;
 	attitude.acc_y.count = 0;

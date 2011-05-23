@@ -54,7 +54,7 @@ char stringTX_U2[U2_TX_BUF_LENGHT] __attribute__((space(dma)));
 //-----------------------------------------------------------------------------
 // Configurazione UART GPS
 //-----------------------------------------------------------------------------
-void dev_uart_gps_init()
+inline void dev_uart_gps_init()
 {
 	uart_xbee_print("UART2\tInitializing...\t");
 

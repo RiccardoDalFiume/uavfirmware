@@ -46,7 +46,7 @@ _FICD( JTAGEN_OFF & ICS_PGD3 );						// JTAG OFF, usa PGD3 in debug
 //-----------------------------------------------------------------------------
 //	Configura il PLL del dsPIC
 //-----------------------------------------------------------------------------
-void dev_osc()
+inline void dev_osc()
 {
 	#if EXT_OSC == 0					// Internal Clock
 		OSCTUNbits.TUN = 4;				// Regola la precisione della frequenza interna
@@ -67,7 +67,7 @@ void dev_osc()
 //-----------------------------------------------------------------------------
 //	Configura gli input/output rimappabili del dsPIC
 //-----------------------------------------------------------------------------
-void dev_settris_init()
+inline void dev_settris_init()
 {
 //	TRISA
 	_TRISA0 	= 0;			// Inutilizzato
@@ -111,7 +111,7 @@ void dev_settris_init()
 	_TRISC9 	= 1;			// SCP1000 DRDY - scavalcato
 }
 
-void dev_pinset_init()
+inline void dev_pinset_init()
 {
 //-----------------------------------------------------------------------------
 //	Remappable Input PIN tables
@@ -146,7 +146,7 @@ void dev_pinset_init()
 //-----------------------------------------------------------------------------
 //	Disabilito il clock delle periferiche non usate
 //-----------------------------------------------------------------------------
-void dev_register_init()
+inline void dev_register_init()
 {
 	_T5MD				= 1;	// Timer5 Module Disable bit
 	_T4MD				= 1;	// Timer4 Module Disable bit

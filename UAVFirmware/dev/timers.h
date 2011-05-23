@@ -38,7 +38,7 @@ void tmr_nav();
 //-----------------------------------------------------------------------------
 // Configure Timer
 //-----------------------------------------------------------------------------
-void dev_timer_init()
+inline void dev_timer_init()
 {
 	uart_xbee_print("TIMER\tInitialization...\t");
 	
