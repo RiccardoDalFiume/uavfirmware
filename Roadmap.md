@@ -1,0 +1,1 @@
+![http://uavfirmware.googlecode.com/svn/trunk/Docs/immagini/sviluppo_progetto.png](http://uavfirmware.googlecode.com/svn/trunk/Docs/immagini/sviluppo_progetto.png)
